@@ -27,8 +27,62 @@ becomes C. To change a message back, each letter is replaced by the one three be
 ### STEP-5: Display the cipher text obtained above.
 
 
-PROGRAM :-
+### PROGRAM :-
+~~~
+#include <stdio.h> 
+#include <string.h> 
+ 
+void encrypt(char message[], int shift) { 
+    shift = shift % 26;  // Ensures shift stays within valid range 
+    for (int i = 0; message[i] != '\0'; ++i) { 
+        if (message[i] >= 'a' && message[i] <= 'z') { 
+            message[i] = ((message[i] - 'a' + shift) % 26) + 'a'; 
+        } else if (message[i] >= 'A' && message[i] <= 'Z') { 
+            message[i] = ((message[i] - 'A' + shift) % 26) + 'A'; 
+        } 
+    } 
+    printf("Encrypted message: %s\n", message); 
+} 
+ 
+void decrypt(char message[], int shift) { 
+    shift = shift % 26;  // Ensures shift stays within valid range 
+    for (int i = 0; message[i] != '\0'; ++i) { 
+        if (message[i] >= 'a' && message[i] <= 'z') { 
+            message[i] = ((message[i] - 'a' - shift + 26) % 26) + 'a'; 
+        } else if (message[i] >= 'A' && message[i] <= 'Z') { 
+            message[i] = ((message[i] - 'A' - shift + 26) % 26) + 'A'; 
+        } 
+    } 
+    printf("Decrypted message: %s\n", message); 
+} 
+ 
+int main() { 
+    char message[100]; 
+    int shift; 
+ 
+    printf("Enter a message: "); 
+    fgets(message, sizeof(message), stdin); 
+ 
+    // Remove newline character from fgets() 
+    message[strcspn(message, "\n")] = '\0'; 
+ 
+    printf("Enter shift amount: "); 
+    scanf("%d", &shift); 
+ 
+    // Make a copy of the message to decrypt later 
+    char encrypted_message[100]; 
+    strcpy(encrypted_message, message); 
+ 
+    encrypt(encrypted_message, shift); 
+    decrypt(encrypted_message, shift); 
+ 
+    return 0;
+}
+~~~
 
 
+### OUTPUT :-
+<img width="492" alt="image" src="https://github.com/user-attachments/assets/a3dad350-f154-45a1-b729-89e2cb39f998" />
 
-OUTPUT :-
+### Result:
+     Hence the output is verified sucessfully
